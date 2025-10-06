@@ -14,23 +14,31 @@ class PeggleClone extends Game {
 	private static final long serialVersionUID = 1L;
 	
 	private ArrayList<Drawable> drawableObjects;
+	private ArrayList<Updating> updatingObjects;
 
 	public PeggleClone() {
 	    super("Peggle",800,600);
 	    drawableObjects = new ArrayList<>();
+	    updatingObjects = new ArrayList<>();
 	    
 	    for (int i = 0; i < 9; i++) {
 	    	Point position = new Point(i * 100, 20);
 	    	Drawable collider = new CircleColliderSprite((i+1) * 2, position, 0, 0, Color.BLUE, 50);
-	    	addDrawable(collider);
+	    	addGameObject(collider);
 	    }
 	    
-	    this.setFocusable(true);
-	    this.requestFocus();
+	    setFocusable(true);
+	    requestFocus();
+	    startGameLoop();
 	}
-	
-	public void addDrawable(Drawable object) {
-		drawableObjects.add(object);
+
+	public <T> void addGameObject(T gameObject) {
+		if (gameObject instanceof Drawable) {
+			drawableObjects.add((Drawable) gameObject);
+		}
+		if (gameObject instanceof Updating) {
+			updatingObjects.add((Updating) gameObject);
+		}
 	}
   
 	public void paint(Graphics brush) {
@@ -40,6 +48,12 @@ class PeggleClone extends Game {
     	for (Drawable d : drawableObjects) {
     		d.paint(brush);
     	}
+	}
+	
+	public void update(double deltaTime) {
+		for (Updating u : updatingObjects) {
+			u.update(deltaTime);
+		}
 	}
   
 	public static void main (String[] args) {

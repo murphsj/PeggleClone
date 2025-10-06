@@ -9,6 +9,15 @@ import java.awt.*;
 import java.awt.event.*;
 
 abstract class Game extends Canvas {
+  /**
+   * The maximum deltatime for a game update in milliseconds.
+   */
+  private static final long MAX_DELTA_TIME = 1000;
+  /**
+   * How many game updates occur in one second.
+   */
+  private static final double FPS = 60;
+	
   protected boolean on = true;
   protected int width, height;
   protected Image buffer;
@@ -31,19 +40,46 @@ abstract class Game extends Canvas {
 	}
   
   // 'paint' will be called every tenth of a second that the game is on.
-	abstract public void paint(Graphics brush);
+  abstract public void paint(Graphics brush);
   
-  // 'update' paints to a buffer then to the screen, then waits a tenth of
-  // a second before repeating itself, assuming the game is on. This is done
-  // to avoid a choppy painting experience if repainted in pieces.
-  public void update(Graphics brush) {
-    paint(buffer.getGraphics());
-		brush.drawImage(buffer,0,0,this);
-    if (on) {sleep(10); repaint();}
-  }
+  /**
+   * Update is called for every physics/game step.
+   * @param deltaTime the time passed since the last step in seconds
+   */
+  abstract public void update(double deltaTime);
+  
   
   // 'sleep' is a simple helper function used in 'update'.
   private void sleep(int time) {
     try {Thread.sleep(time);} catch(Exception exc){};
+  }
+  
+  /**
+   * Starts the update cycle of the game, invoking the update and draw methods
+   * every game tick.
+   * This function causes the thread to yield until the game ends.
+   */
+  public void startGameLoop() {
+	  long lastFrameTime = System.currentTimeMillis();
+	  long timePerFrame = (long) (1000/FPS);
+	  
+	  while (on) {
+		  long currentTime = System.currentTimeMillis();
+		  long frameTime = currentTime - lastFrameTime;
+		  
+		  // Run the update method. If frameTime is bigger than the max allowed
+		  // value, split into several calls of the update method
+		  while (frameTime > 0) {
+			  long deltaTime = Math.min(frameTime, MAX_DELTA_TIME);
+			  update(deltaTime * 0.0001);
+			  frameTime -= deltaTime;
+		  }
+		  
+		  // If neccecary, wait to preserve framerate
+		  if (frameTime < timePerFrame) sleep((int) (timePerFrame - frameTime));
+		  
+		  // Draw updated canvas
+		  repaint();
+	  }
   }
 }

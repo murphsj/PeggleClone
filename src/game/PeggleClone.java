@@ -21,11 +21,7 @@ class PeggleClone extends Game {
 	    drawableObjects = new ArrayList<>();
 	    updatingObjects = new ArrayList<>();
 	    
-	    for (int i = 0; i < 9; i++) {
-	    	Point position = new Point(i * 100, 20);
-	    	Drawable collider = new CircleColliderSprite((i+1) * 2, position, 0, 0, Color.BLUE, 50);
-	    	addGameObject(collider);
-	    }
+	    addGameObject(new Ball(new Point(50, 0), new Point(0, 0)));
 	    
 	    setFocusable(true);
 	    requestFocus();

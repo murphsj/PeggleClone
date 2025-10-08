@@ -45,7 +45,10 @@ public class DrawablePolygon extends Polygon implements Drawable {
 			pointsY[i] = (int)points[i].y;
 		}
 		
+		
 		brush.fillPolygon(pointsX, pointsY, points.length);
+		brush.setColor(Color.RED);
+		brush.fillOval((int)position.x, (int)position.y, 5, 5);
 	}
 	
 	@Override

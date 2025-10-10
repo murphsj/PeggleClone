@@ -1,6 +1,7 @@
 package game;
 
 import java.awt.Color;
+import java.util.ArrayList;
 
 /**
  * Base class for game objects which use a circular hitbox. Contains utilities
@@ -13,6 +14,8 @@ public class CircleColliderSprite extends DrawablePolygon  {
 	 * shape generation if a shape is not provided.
 	 */
 	double radius = 0;
+	
+	public static ArrayList<CircleColliderSprite> colliders = new ArrayList<>();
 	
 	/**
 	 * Builds a circular polygonal shape with the given radius and number
@@ -52,7 +55,8 @@ public class CircleColliderSprite extends DrawablePolygon  {
 	public CircleColliderSprite(Point[] shape, Point position, double rotation,
 			int drawOrder, Color drawColor, double radius) {
 		super(shape, position, rotation, drawOrder, drawColor);
-		
+		this.radius = radius;
+		colliders.add(this);
 	}
 	
 	/**

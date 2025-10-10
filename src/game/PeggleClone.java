@@ -23,6 +23,12 @@ class PeggleClone extends Game {
 	    
 	    addGameObject(new Ball(new Point(50, 0), new Point(0, 0)));
 	    
+	    for (int i = 0; i < 20; i++) {
+	    	double randomX = Math.random() * 700;
+	    	double randomY = Math.random() * 400;
+	    	addGameObject(new NormalPeg(new Point(randomX, randomY + 200)));
+	    }
+	    
 	    setFocusable(true);
 	    requestFocus();
 	    startGameLoop();

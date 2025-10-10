@@ -10,13 +10,9 @@ import java.awt.event.*;
 
 abstract class Game extends Canvas {
   /**
-   * The maximum deltatime for a game update in milliseconds.
-   */
-  private static final long MAX_DELTA_TIME = 1000;
-  /**
    * How many game updates occur in one second.
    */
-  private static final double FPS = 60;
+  private static final long FPS = 120;
 	
   protected boolean on = true;
   protected int width, height;
@@ -60,26 +56,25 @@ abstract class Game extends Canvas {
    * This function causes the thread to yield until the game ends.
    */
   public void startGameLoop() {
-	  long lastFrameTime = System.currentTimeMillis();
-	  long timePerFrame = (long) (1000/FPS);
+	  long lastFrameTime = System.nanoTime();
+	  double nsPerFrame = 1000000000D/(double)FPS;
+	  double ticks = 0;
 	  
 	  while (on) {
-		  long currentTime = System.currentTimeMillis();
-		  long frameTime = currentTime - lastFrameTime;
+		  long currentTime = System.nanoTime();
+		  
+		  ticks += (double)(currentTime - lastFrameTime)/nsPerFrame;
 		  
 		  // Run the update method. If frameTime is bigger than the max allowed
 		  // value, split into several calls of the update method
-		  while (frameTime > 0) {
-			  long deltaTime = Math.min(frameTime, MAX_DELTA_TIME);
-			  update(deltaTime * 0.0001);
-			  frameTime -= deltaTime;
+		  while (ticks >= 1) {
+			  update((nsPerFrame * 1e-9D) * 5);
+			  ticks -= 1;
 		  }
-		  
-		  // If neccecary, wait to preserve framerate
-		  if (frameTime < timePerFrame) sleep((int) (timePerFrame - frameTime));
 		  
 		  // Draw updated canvas
 		  repaint();
+		  lastFrameTime = currentTime;
 	  }
   }
 }

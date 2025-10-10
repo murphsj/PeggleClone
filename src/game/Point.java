@@ -32,4 +32,32 @@ public class Point implements Cloneable {
 	public Point mul(double s) {
 		return new Point(x*s, y*s);
 	}
+	
+	public double length() {
+		return Math.sqrt(Math.pow(x,  2) + Math.pow(y, 2));
+	}
+	
+	/**
+	 * Returns the dot product of two vectors.
+	 * @param p
+	 * @return the dot result between this Point and p
+	 */
+	public double dot(Point p) {
+		return (x * p.x) + (y * p.y);
+	}
+	
+	/**
+	 * Normalizes the point in-place, setting its length to 1 while maintaining
+	 * direction.
+	 * @author Samuel Murphy
+	 */
+	public void normalize() {
+		double length = length();
+		x /= length;
+		y /= length;
+	}
+	
+	public String toString() {
+		return "(" + x + ", " + y + ")";
+	}
 }

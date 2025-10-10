@@ -1,6 +1,7 @@
 package game;
 
 import java.awt.Color;
+import java.awt.Graphics;
 
 /**
  * A pinball-like physics object which can bounce off pegs.
@@ -31,9 +32,9 @@ public class Ball extends CircleColliderSprite implements Updating {
 	private static final double GRAVITY = 9.8;
 	
 	/**
-	 * The last position of the ball. Used for Verlet integration.
+	 * The velocity of the ball.
 	 */
-    private Point lastPosition;
+    private Point velocity;
     /**
      * The rotational acceleration of the ball.
      */
@@ -47,34 +48,65 @@ public class Ball extends CircleColliderSprite implements Updating {
      */
     public Ball(Point position, Point initialVelocity) {
         super(NUM_POINTS, position, 0, DRAW_ORDER_LAYER, DRAW_COLOR, RADIUS);
-        setVelocity(initialVelocity);
+        velocity = new Point(0, 0);
+    }
+    
+    public void bounce(CircleColliderSprite collider) {
+    	// Circle bounce algorithm from FlatRedBall
+    	// (accesed via Internet Archive)
+    	// https://flatredball.com/documentation/tutorials/math/circle-collision
+    	
+    	// Get the line tangent to the line between the circles
+		Point collisionLine = new Point(
+				-(collider.position.y - position.y),
+				collider.position.x - position.x
+		);
+		collisionLine.normalize();
+		
+		// Dot velocity with that line to get the velocity perpendicular to the
+		// line of collision
+		double magnitudePerpendicular = velocity.dot(collisionLine);
+		
+		Point tangentVelocity = collisionLine.mul(magnitudePerpendicular);
+		Point impulseVelocity = velocity.sub(tangentVelocity);
+		
+		velocity.x -= impulseVelocity.x * 2;
+		velocity.y -= impulseVelocity.y * 2;
     }
     
     /**
-     * Advances the ball's physics simulation using Verlet integration.
+     * Advances the ball's physics.
      * @author Samuel Murphy
      */
     @Override
     public void update(double deltaTime) {
-    	// Velocity Verlet integration algorithm from Gorilla Sun
-    	Point newPosition = position.mul(2).sub(lastPosition);
-    	// Acceleraton is constant since gravity is the only force
-    	newPosition.y += GRAVITY * (deltaTime*deltaTime);
+    	position = position.add(velocity.mul(deltaTime));
+    	velocity.y += GRAVITY * deltaTime;
     	
-    	lastPosition = position;
-    	position = newPosition;
+    	if (position.y > 500) {
+    		velocity.y *= -1;
+    	}
+    	
+    	for (CircleColliderSprite collider : CircleColliderSprite.colliders) {
+    		if (this.equals(collider)) continue;
+    		if (this.isColliding(collider)) {
+    			bounce(collider);
+    		}
+    	}
     }
     
     /**
-     * Set the instentaneous velocity of the ball.
-     * @param velocity the new velocity to set
-     * @author Samuel Murphy
+     * Adds to the veloicty of the ball.
+     * @param impulseVelocity 
      */
-    public void setVelocity(Point velocity) {
-        // With Verlet integration, we calculate velocity using the ball's
-    	// previous position. As a result, we can't directly set velocity.
-    	// Instead, manipulate lastPosition so that the calculated velocity is
-    	// as we want it to be
-    	lastPosition = position.sub(velocity);
+    public void applyImpulse(Point impulseVelocity) {
+    	velocity = velocity.add(impulseVelocity);
     }
+    
+    @Override
+	public void paint(Graphics brush) {
+    	super.paint(brush);
+    	brush.drawString(velocity.toString(), (int)(position.x + radius), (int)(position.y + radius));
+    }
+    
 }

@@ -10,7 +10,7 @@ public abstract class Peg extends CircleColliderSprite {
 	/**
 	 * Radius of this object's circle.
 	 */
-	private static final int RADIUS = 5;
+	private static final int RADIUS = 20;
 	/**
 	 * Z layer of this object.
 	 */

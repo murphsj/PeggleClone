@@ -15,7 +15,7 @@ public class Ball extends CircleColliderSprite implements Updating {
 	/**
 	 * Radius of this object's circle.
 	 */
-	private static final int RADIUS = 20;
+	private static final int RADIUS = 12;
 	/**
 	 * Draw color of this object's sprite.
 	 */
@@ -72,6 +72,19 @@ public class Ball extends CircleColliderSprite implements Updating {
 		
 		velocity.x -= impulseVelocity.x * 2;
 		velocity.y -= impulseVelocity.y * 2;
+		
+		double x2 = Math.pow(collider.position.x - position.x, 2);
+		double y2 = Math.pow(collider.position.y - position.y, 2);
+		double distance = Math.sqrt(x2 + y2);
+		
+		Point pushOut = velocity.clone();
+		pushOut.normalize();
+		
+		double pushOutDistance = (radius + collider.radius) - distance;
+		
+		// Apply immediately to prevent ball getting stuck
+		position.x += pushOut.x * pushOutDistance;
+		position.y += pushOut.y * pushOutDistance;
     }
     
     /**
@@ -87,11 +100,33 @@ public class Ball extends CircleColliderSprite implements Updating {
     		velocity.y *= -1;
     	}
     	
+    	handleCircleCollisions();
+    	handleBoundsCollisions();
+    	
+    }
+    
+    private void handleCircleCollisions() {
     	for (CircleColliderSprite collider : CircleColliderSprite.colliders) {
     		if (this.equals(collider)) continue;
     		if (this.isColliding(collider)) {
     			bounce(collider);
     		}
+    	}
+    }
+    
+    private void handleBoundsCollisions() {
+    	if (position.x - radius < 0) {
+    		position.x = radius;
+    		velocity.x *= -1;
+    	} else if (position.x + radius > 800) {
+    		position.x = 800 - radius;
+    		velocity.x *= -1;
+    	} else if (position.y - radius < 0) {
+    		position.y = radius;
+    		velocity.y *= -1;
+    	} else if (position.y + radius > 800) {
+    		position.y = 800 - radius;
+    		velocity.y *= -1;
     	}
     }
     

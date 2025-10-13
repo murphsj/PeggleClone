@@ -22,6 +22,10 @@ class PeggleClone extends Game {
 	    updatingObjects = new ArrayList<>();
 	    
 	    addGameObject(new Ball(new Point(50, 0), new Point(0, 0)));
+	    BallLauncher launcher = new BallLauncher(new Point(400, 50), 0);
+	    addGameObject(launcher);
+	    launcher.SubscribeInputListener(this);
+	    
 	    
 	    for (int i = 0; i < 20; i++) {
 	    	double randomX = Math.random() * 700;

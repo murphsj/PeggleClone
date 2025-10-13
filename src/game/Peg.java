@@ -10,15 +10,22 @@ public abstract class Peg extends CircleColliderSprite {
 	/**
 	 * Radius of this object's circle.
 	 */
-	private static final int RADIUS = 20;
+	private static final int RADIUS = 14;
 	/**
 	 * Z layer of this object.
 	 */
 	private static final int DRAW_ORDER_LAYER = 2;
 	
-	
+	/**
+	 * True if this peg has been hit.
+	 */
     private boolean isHit;
 
+    /**
+     * Creates a new Peg.
+     * @param position
+     * @param color
+     */
     public Peg(Point position, Color color) {
         super(NUM_POINTS, position, 0, DRAW_ORDER_LAYER, color, RADIUS);
     }

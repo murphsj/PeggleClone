@@ -12,13 +12,13 @@ abstract class Game extends Canvas {
   /**
    * How many game updates occur in one second.
    */
-  private static final long FPS = 120;
+  private static final long FPS = 60;
 	
   protected boolean on = true;
   protected int width, height;
   protected Image buffer;
   
-	public Game(String name, int inWidth, int inHeight) {
+  public Game(String name, int inWidth, int inHeight) {
 	  width = inWidth;
 	  height = inHeight;
 	  
@@ -44,16 +44,11 @@ abstract class Game extends Canvas {
    */
   abstract public void update(double deltaTime);
   
-  
-  // 'sleep' is a simple helper function used in 'update'.
-  private void sleep(int time) {
-    try {Thread.sleep(time);} catch(Exception exc){};
-  }
-  
   /**
    * Starts the update cycle of the game, invoking the update and draw methods
    * every game tick.
    * This function causes the thread to yield until the game ends.
+   * @author Samuel Murphy
    */
   public void startGameLoop() {
 	  long lastFrameTime = System.nanoTime();

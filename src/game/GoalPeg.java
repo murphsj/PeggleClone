@@ -6,7 +6,7 @@ public class GoalPeg extends Peg {
 	/**
 	 * The base color of this sprite.
 	 */
-	private static final Color COLOR_GOAL_PEG = new Color(0.32f, 0.40f, 0.81f);
+	private static final Color COLOR_GOAL_PEG = new Color(1f, 0.66f, 0.16f);
 
 	/**
 	 * Builds a circular polygonal shape with the given position
@@ -17,11 +17,13 @@ public class GoalPeg extends Peg {
     }
 	
 	/**
-	 * Increases score by 1 when hit and lights up
+	 * Increases score by 10 when hit and lights up
 	 * @author Carlton Luu 
-	 * @return void
 	 */
     public void onHit() {
-		
+    	if (!isHit) {
+    		Stage.addScore(10);
+    	}
+		super.onHit();
     }
 }

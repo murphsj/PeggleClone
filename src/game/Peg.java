@@ -19,7 +19,7 @@ public abstract class Peg extends CircleColliderSprite {
 	/**
 	 * True if this peg has been hit.
 	 */
-    private boolean isHit;
+    protected boolean isHit;
 
     /**
      * Creates a new Peg.

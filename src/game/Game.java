@@ -18,12 +18,14 @@ abstract class Game extends Canvas {
   protected int width, height;
   protected Image buffer;
   
+  private Frame frame;
+  
   public Game(String name, int inWidth, int inHeight) {
 	  width = inWidth;
 	  height = inHeight;
 	  
 	  // Frame can be read as 'window' here.
-    Frame frame = new Frame(name);
+    frame = new Frame(name);
     frame.add(this);
     frame.setSize(width,height);
     frame.setVisible(true);
@@ -71,5 +73,12 @@ abstract class Game extends Canvas {
 		  repaint();
 		  lastFrameTime = currentTime;
 	  }
+  }
+  
+  /**
+   * ADD JAVADOC HERE
+   */
+  public void endGame() {
+	  frame.dispose();
   }
 }

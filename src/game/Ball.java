@@ -48,7 +48,7 @@ public class Ball extends CircleColliderSprite implements Updating {
      */
     public Ball(Point position, Point initialVelocity) {
         super(NUM_POINTS, position, 0, DRAW_ORDER_LAYER, DRAW_COLOR, RADIUS);
-        velocity = new Point(0, 0);
+        velocity = initialVelocity;
     }
     
     public void bounce(CircleColliderSprite collider) {
@@ -70,8 +70,10 @@ public class Ball extends CircleColliderSprite implements Updating {
 		Point tangentVelocity = collisionLine.mul(magnitudePerpendicular);
 		Point impulseVelocity = velocity.sub(tangentVelocity);
 		
-		velocity.x -= impulseVelocity.x * 2;
-		velocity.y -= impulseVelocity.y * 2;
+		// Multiply by 2 (since the other object is stationary) minus 0.1
+		// so that some energy is lost
+		velocity.x -= impulseVelocity.x * 1.9;
+		velocity.y -= impulseVelocity.y * 1.9;
 		
 		double x2 = Math.pow(collider.position.x - position.x, 2);
 		double y2 = Math.pow(collider.position.y - position.y, 2);
@@ -85,6 +87,11 @@ public class Ball extends CircleColliderSprite implements Updating {
 		// Apply immediately to prevent ball getting stuck
 		position.x += pushOut.x * pushOutDistance;
 		position.y += pushOut.y * pushOutDistance;
+		
+		if (collider instanceof Peg) {
+			Peg peg = (Peg) collider;
+			peg.onHit();
+		}
     }
     
     /**
@@ -95,10 +102,6 @@ public class Ball extends CircleColliderSprite implements Updating {
     public void update(double deltaTime) {
     	position = position.add(velocity.mul(deltaTime));
     	velocity.y += GRAVITY * deltaTime;
-    	
-    	if (position.y > 500) {
-    		velocity.y *= -1;
-    	}
     	
     	handleCircleCollisions();
     	handleBoundsCollisions();
@@ -123,9 +126,6 @@ public class Ball extends CircleColliderSprite implements Updating {
     		velocity.x *= -1;
     	} else if (position.y - radius < 0) {
     		position.y = radius;
-    		velocity.y *= -1;
-    	} else if (position.y + radius > 800) {
-    		position.y = 800 - radius;
     		velocity.y *= -1;
     	}
     }

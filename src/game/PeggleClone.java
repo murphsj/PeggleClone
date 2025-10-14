@@ -13,37 +13,58 @@ import java.util.ArrayList;
 class PeggleClone extends Game {
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * A list of all drawable game objects currently in the scene.
+	 */
 	private ArrayList<Drawable> drawableObjects;
+	/**
+	 * A list of all updating game objects currently in the scene.
+	 */
 	private ArrayList<Updating> updatingObjects;
 
+	/**
+	 * Constructs a new PeggleClone.
+	 */
 	public PeggleClone() {
 	    super("Peggle",800,600);
 	    drawableObjects = new ArrayList<>();
 	    updatingObjects = new ArrayList<>();
 	    
-	    addGameObject(new Ball(new Point(50, 0), new Point(0, 0)));
-	    BallLauncher launcher = new BallLauncher(new Point(400, 50), 0);
-	    addGameObject(launcher);
-	    launcher.SubscribeInputListener(this);
-	    
-	    
-	    for (int i = 0; i < 20; i++) {
-	    	double randomX = Math.random() * 700;
-	    	double randomY = Math.random() * 400;
-	    	addGameObject(new NormalPeg(new Point(randomX, randomY + 200)));
-	    }
+	    // Initialize the game stage
+	    Stage stage = new Stage(this);
 	    
 	    setFocusable(true);
 	    requestFocus();
 	    startGameLoop();
 	}
 
+	/**
+	 * Adds a game object to the scene, enabling drawing and updating behavior.
+	 * @param <T> the type of the game object
+	 * @param gameObject the game object to add
+	 * @author Samuel Murphy
+	 */
 	public <T> void addGameObject(T gameObject) {
 		if (gameObject instanceof Drawable) {
 			drawableObjects.add((Drawable) gameObject);
 		}
 		if (gameObject instanceof Updating) {
 			updatingObjects.add((Updating) gameObject);
+		}
+	}
+	
+	/**
+	 * Removes a game object from the scene.
+	 * @param <T> the type of the game object
+	 * @param gameObject the game object to remove
+	 * @author Samuel Murphy
+	 */
+	public <T> void removeGameObject(T gameObject) {
+		if (gameObject instanceof Drawable) {
+			drawableObjects.remove((Drawable) gameObject);
+		}
+		if (gameObject instanceof Updating) {
+			updatingObjects.remove((Updating) gameObject);
 		}
 	}
   

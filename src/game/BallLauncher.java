@@ -1,15 +1,20 @@
 package game;
 
-import java.awt.Canvas;
 import java.awt.Color;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 /**
  * The ball launcher. Can be rotated through player input and release a
  * Ball object.
  */
-public class BallLauncher extends DrawablePolygon implements Updating {
+public class BallLauncher extends DrawablePolygon {
+	/**
+	 * The speed in degrees/second that the launcher rotates.
+	 */
+	private static final double LAUNCHER_SPEED = 10;
+	/**
+	 * How fast the ball gets shot out of the launcher.
+	 */
+	private static final double LAUNCHER_POWER = 80;
 	/**
 	 * Z layer of this object.
 	 */
@@ -19,59 +24,11 @@ public class BallLauncher extends DrawablePolygon implements Updating {
 	 */
 	private static final Color COLOR_LAUNCHER = 
 			new Color(0.32f, 0.40f, 0.81f);
-	/**
-	 * The speed in degrees/second that the launcher rotates.
-	 */
-	private static final double LAUNCHER_SPEED = 10;
-	
-	/**
-	 * Whether or not the left directional key is held down.
-	 */
-	private boolean leftHeld = false;
-	/**
-	 * Whether or not the right directional key is held down.
-	 */
-	private boolean rightHeld = false;
-	
-	/**
-	 * The input listener which listens for inputs that control the ball
-	 * launcher. 
-	 */
-	public class BallInputListener implements KeyListener {
-		@Override
-		public void keyTyped(KeyEvent e) {};
-
-		@Override
-		public void keyPressed(KeyEvent e) {
-			int keyCode = e.getKeyCode();
-			switch (keyCode) {
-			case KeyEvent.VK_LEFT:
-				leftHeld = true;
-				break;
-			case KeyEvent.VK_RIGHT:
-				rightHeld = true;
-				break;
-			}
-		}
-
-		@Override
-		public void keyReleased(KeyEvent e) {
-			int keyCode = e.getKeyCode();
-			switch (keyCode) {
-			case KeyEvent.VK_LEFT:
-				leftHeld = false;
-				break;
-			case KeyEvent.VK_RIGHT:
-				rightHeld = false;
-				break;
-			}
-		}
-		
-	}
 	
 	/**
 	 * Constructs the ball launcher sprite's polygon.
 	 * @return Point[] representation of the sprite's polygon
+	 * @author Samuel Murphy
 	 */
 	private static Point[] makeLauncherShape() {
 		return new Point[] {
@@ -85,25 +42,33 @@ public class BallLauncher extends DrawablePolygon implements Updating {
 	 * Creates a new BallLauncher.
 	 * @param position
 	 * @param rotation
+	 * @author Samuel Murphy
 	 */
 	public BallLauncher(Point position, double rotation) {
 		super(makeLauncherShape(), position, rotation, DRAW_ORDER_LAYER,
 				COLOR_LAUNCHER);
 	}
 	
-	public void SubscribeInputListener(Canvas canvas) {
-		canvas.addKeyListener(new BallInputListener());
+	/**
+	 * Spawns a new Ball at the position of the launcher moving in the
+	 * direction of the launcher.
+	 * @return the created Ball
+	 * @author Samuel Murphy
+	 */
+	public Ball shootBall() {
+		return new Ball(position.clone(), new Point(
+				Math.cos(Math.toRadians(rotation + 90)) * LAUNCHER_POWER,
+				Math.sin(Math.toRadians(rotation + 90)) * LAUNCHER_POWER
+		));
 	}
-
-	@Override
-	public void update(double deltaTime) {
-		if (leftHeld) {
-			rotation += deltaTime * LAUNCHER_SPEED;
-		}
-		if (rightHeld) {
-			rotation -= deltaTime * LAUNCHER_SPEED;
-		}
-	}
-
 	
+	/**
+	 * Rotates the launcher by the given change value. rotationChange should be
+	 * this update's delta-time value scaled based on if the launcher should be
+	 * stationary, rotating left, or rotating right.
+	 * @param rotationChange
+	 */
+	public void rotate(double rotationChange) {
+		rotation += rotationChange * LAUNCHER_SPEED;
+	}
 }

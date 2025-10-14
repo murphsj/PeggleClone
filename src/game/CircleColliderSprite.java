@@ -17,6 +17,10 @@ public class CircleColliderSprite extends DrawablePolygon  {
 	
 	public static ArrayList<CircleColliderSprite> colliders = new ArrayList<>();
 	
+	public static void removeCollider(CircleColliderSprite sprite) {
+		colliders.remove(sprite);
+	}
+	
 	/**
 	 * Builds a circular polygonal shape with the given radius and number
 	 * of points.

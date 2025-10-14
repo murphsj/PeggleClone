@@ -4,9 +4,12 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.ArrayList;
 
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
 /**
  * Manager for the current game state, including spawning the map and
@@ -139,7 +142,7 @@ public class Stage implements Updating {
 	    
 	    generateRandomStage(20, 5);
 	    
-	    ballsLeft = 8;
+	    ballsLeft = 1;
 	}
 	
 	/**
@@ -220,11 +223,21 @@ public class Stage implements Updating {
 				canShoot = true;
 			} else {
 				// End the game with a game over message
-				JOptionPane.showMessageDialog(game,
-						"Game Over! Final score: " + score
+				JDialog gameOverDialog = new JDialog();
+				gameOverDialog.add(
+						new JLabel("You lose! Final score: " + score)
 				);
+				gameOverDialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+				gameOverDialog.addWindowListener(new WindowAdapter() {
+					@Override
+					public void windowClosing(WindowEvent e) {
+						game.endGame();
+						gameOverDialog.dispose();
+					}
+				});
 				
-				game.endGame();
+				gameOverDialog.pack();
+				gameOverDialog.setVisible(true);
 			}
 		}
 	}

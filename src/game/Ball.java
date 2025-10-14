@@ -47,6 +47,13 @@ public class Ball extends CircleColliderSprite implements Updating {
         velocity = initialVelocity;
     }
     
+    /**
+     * Called when the ball collides with an object. Applies velocity to the
+     * ball to simulate a bounce and forces the ball outside of the object's
+     * space.
+     * @param collider the object the ball collided with
+     * @author Samuel Murphy
+     */
     public void bounce(CircleColliderSprite collider) {
     	// Circle bounce algorithm from FlatRedBall
     	// (accesed via Internet Archive)
@@ -80,7 +87,7 @@ public class Ball extends CircleColliderSprite implements Updating {
 		
 		double pushOutDistance = (radius + collider.radius) - distance;
 		
-		// Apply immediately to prevent ball getting stuck
+		// Push the ball out of the collider to prevent getting stuck
 		position.x += pushOut.x * pushOutDistance;
 		position.y += pushOut.y * pushOutDistance;
 		

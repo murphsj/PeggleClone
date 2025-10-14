@@ -7,6 +7,10 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+/**
+ * Manager for the current game state, including spawning the map and
+ * game objects as well as keeping track of win/lose conditions.
+ */
 public class Stage implements Updating {
 	
 	/**
@@ -135,6 +139,9 @@ public class Stage implements Updating {
 	    ballsLeft = 8;
 	}
 	
+	/**
+	 * ADD JAVADOC HERE
+	 */
 	private void generateRandomStage(int normalPegs, int goalPegs) {
 		// Generate normal pegs
 	    for (int i = 0; i < normalPegs; i++) {
@@ -155,6 +162,9 @@ public class Stage implements Updating {
 	    }
 	}
 	
+	/**
+	 * ADD JAVADOC HERE
+	 */
 	private void launchBall() {
 		ballsLeft--;
 		canShoot = false;
@@ -162,6 +172,9 @@ public class Stage implements Updating {
 		game.addGameObject(inPlayBall);
 	}
 	
+	/**
+	 * ADD JAVADOC HERE
+	 */
 	private void updateLauncher(double deltaTime) {
 		double rotationDelta = 0;
 		if (leftHeld) {
@@ -174,6 +187,9 @@ public class Stage implements Updating {
 		launcher.rotate(rotationDelta);
 	}
 	
+	/**
+	 * ADD JAVADOC HERE
+	 */
 	private void endTurn() {
 		if (inPlayBall != null) {
 			game.removeGameObject(inPlayBall);
@@ -197,7 +213,7 @@ public class Stage implements Updating {
 				// Reset the game with a new level
 				clearPegs();
 				generateRandomStage(20, 5);
-				ballsLeft = 6;
+				ballsLeft = 8;
 				canShoot = true;
 			} else {
 				// End the game with a game over message
@@ -210,6 +226,9 @@ public class Stage implements Updating {
 		}
 	}
 	
+	/**
+	 * ADD JAVADOC HERE
+	 */
 	private void clearPegs() {
 		for (Peg p : pegs) {
 			game.removeGameObject(p);
@@ -219,6 +238,9 @@ public class Stage implements Updating {
 		pegs = new ArrayList<>();
 	}
 	
+	/**
+	 * ADD JAVADOC HERE
+	 */
 	private boolean hasWon() {
 		// If any peg on the field is a GoalPeg, we haven't won yet
 		for (Peg peg : pegs) {
@@ -230,6 +252,9 @@ public class Stage implements Updating {
 		return true;
 	}
 
+	/**
+	 * ADD JAVADOC HERE
+	 */
 	@Override
 	public void update(double deltaTime) {
 		updateLauncher(deltaTime);

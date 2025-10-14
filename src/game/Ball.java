@@ -35,10 +35,6 @@ public class Ball extends CircleColliderSprite implements Updating {
 	 * The velocity of the ball.
 	 */
     private Point velocity;
-    /**
-     * The rotational acceleration of the ball.
-     */
-    private double rotationalAccel;
 
     /**
      * Constructs a new Ball.
@@ -141,7 +137,6 @@ public class Ball extends CircleColliderSprite implements Updating {
     @Override
 	public void paint(Graphics brush) {
     	super.paint(brush);
-    	brush.drawString(velocity.toString(), (int)(position.x + radius), (int)(position.y + radius));
     }
     
 }

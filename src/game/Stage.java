@@ -1,5 +1,6 @@
 package game;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -17,8 +18,10 @@ public class Stage implements Updating {
 	 * Text display of the game state.
 	 */
 	private class StageInfoDisplay implements Drawable {
+		private static Color INFO_DRAW_COLOR = new Color(1f, 1f, 1f);
 		@Override
 		public void paint(Graphics brush) {
+			brush.setColor(INFO_DRAW_COLOR);
 			String stageInfo = "Balls Left: " + ballsLeft + "\n "
 					+ "Score: " + score;
 			brush.drawString(stageInfo, 0, 30);

@@ -51,6 +51,8 @@ class PeggleClone extends Game {
 		if (gameObject instanceof Updating) {
 			updatingObjects.add((Updating) gameObject);
 		}
+		
+		sortZLevel();
 	}
 	
 	/**
@@ -66,8 +68,25 @@ class PeggleClone extends Game {
 		if (gameObject instanceof Updating) {
 			updatingObjects.remove((Updating) gameObject);
 		}
+		
+		sortZLevel();
 	}
-  
+	
+	/**
+	 * ADD JAVADOC HERE
+	 */
+	private void sortZLevel() {
+		// Use a lambda compare function to sort drawable objects by z level
+		drawableObjects.sort(
+				(a, b) -> a.getDrawOrder() - b.getDrawOrder()
+		);
+	}
+	
+	/**
+	 * Paints all drawable objects.
+	 * @author Samuel Murphy
+	 */
+	@Override
 	public void paint(Graphics brush) {
     	brush.setColor(Color.black);
     	brush.fillRect(0,0,width,height);
@@ -77,6 +96,10 @@ class PeggleClone extends Game {
     	}
 	}
 	
+	/**
+	 * Updates all Updating game objects.
+	 * @author Samuel Murphy
+	 */
 	public void update(double deltaTime) {
 		for (Updating u : updatingObjects) {
 			u.update(deltaTime);
@@ -86,5 +109,5 @@ class PeggleClone extends Game {
 	public static void main (String[] args) {
    		PeggleClone a = new PeggleClone();
 		a.repaint();
-  }
+	}
 }

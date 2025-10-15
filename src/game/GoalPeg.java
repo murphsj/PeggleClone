@@ -10,7 +10,7 @@ public class GoalPeg extends Peg {
 
 	/**
 	 * Builds a circular polygonal shape with the given position
-	 * @param position 
+	 * @param position the point to create peg
 	 * @author Carlton Luu
 	 */
     public GoalPeg(Point position) {

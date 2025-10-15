@@ -76,7 +76,8 @@ abstract class Game extends Canvas {
   }
   
   /**
-   * ADD JAVADOC HERE
+   * Disposes of frames when game is over.
+   * @author Carlton Luu
    */
   public void endGame() {
 	  frame.dispose();

@@ -16,7 +16,12 @@ public class CircleColliderSprite extends DrawablePolygon  {
 	double radius = 0;
 	
 	public static ArrayList<CircleColliderSprite> colliders = new ArrayList<>();
-	
+
+	/**
+     * Removes the specified collider from the list of active circle colliders.
+     * @param sprite the collider to remove from the active colliders list
+	 * @author Carlton Luu
+     */
 	public static void removeCollider(CircleColliderSprite sprite) {
 		colliders.remove(sprite);
 	}
@@ -50,12 +55,12 @@ public class CircleColliderSprite extends DrawablePolygon  {
 	
 	/**
 	 * Constructs a new CircleColliderSprite.
-	 * @param shape
-	 * @param position
-	 * @param rotation
-	 * @param drawOrder
-	 * @param drawColor
-	 * @param radius
+     * @param shape the array of points defining the sprite’s shape
+     * @param position the initial position of the sprite
+     * @param rotation the initial rotation angle of the sprite in radians
+     * @param drawOrder the rendering order priority for this sprite
+     * @param drawColor the color used to draw the sprite
+     * @param radius the collision radius used for circular collision detection
 	 * @author Carlton Luu
 	 */
 	public CircleColliderSprite(Point[] shape, Point position, double rotation,
@@ -69,11 +74,11 @@ public class CircleColliderSprite extends DrawablePolygon  {
 	 * Constructs a new CircleColliderSprite with an automatically generated
 	 * polygonal circle shape.
 	 * @param numPoints how many points the shape should have; must be &gt;= 2
-	 * @param position
-	 * @param rotation
-	 * @param drawOrder
-	 * @param drawColor
-	 * @param radius
+     * @param position the initial position of the sprite
+     * @param rotation the initial rotation angle of the sprite in radians
+     * @param drawOrder the rendering order priority for this sprite
+     * @param drawColor the color used to draw the sprite
+     * @param radius the collision radius used for circular collision detection
 	 * @author Carlton Luu
 	 */
 	public CircleColliderSprite(int numPoints, Point position, double rotation,
@@ -85,7 +90,7 @@ public class CircleColliderSprite extends DrawablePolygon  {
 	/**
 	 * Returns whether or not this sprite is in contact with another circular
 	 * sprite.
-	 * @param other
+	 * @param other the other CircleColliderSprite to check collision with
 	 * @return true if the objects are colliding, otherwise false
 	 * @author Carlton Luu
 	 */
@@ -104,6 +109,8 @@ public class CircleColliderSprite extends DrawablePolygon  {
 	
 	/**
 	 * Returns whether or not this sprite is outside of the given bounds.
+	 * @param min the top-left corner point representing the minimum x and y bounds
+     * @param max the bottom-right corner point representing the maximum x and y bounds
 	 * @return true if the sprite is outside of the bounds, otherwise false
 	 * @author Carlton Luu
 	 */

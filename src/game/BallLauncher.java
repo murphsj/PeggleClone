@@ -40,8 +40,8 @@ public class BallLauncher extends DrawablePolygon {
 
 	/**
 	 * Creates a new BallLauncher.
-	 * @param position
-	 * @param rotation
+	 * @param position the point to create launcher
+	 * @param rotation amount to rotate launcher
 	 * @author Samuel Murphy
 	 */
 	public BallLauncher(Point position, double rotation) {
@@ -66,7 +66,7 @@ public class BallLauncher extends DrawablePolygon {
 	 * Rotates the launcher by the given change value. rotationChange should be
 	 * this update's delta-time value scaled based on if the launcher should be
 	 * stationary, rotating left, or rotating right.
-	 * @param rotationChange
+	 * @param rotationChange amount to rotate launcher
 	 * @author Carlton Luu
 	 */
 	public void rotate(double rotationChange) {

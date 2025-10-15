@@ -25,11 +25,16 @@ public abstract class Peg extends CircleColliderSprite {
      * Creates a new Peg.
      * @param position
      * @param color
+	 * @author Carlton Luu
      */
     public Peg(Point position, Color color) {
         super(NUM_POINTS, position, 0, DRAW_ORDER_LAYER, color, RADIUS);
     }
 
+	/**
+	 * Handles peg hit by ball, marks as hit, and lightens color
+	 * @author Carlton Luu
+	 */
     public void onHit()
     {
     	// Pegs can only get hit once
@@ -39,7 +44,11 @@ public abstract class Peg extends CircleColliderSprite {
     	// Change the sprite to be brighter to reflect hit state
     	drawColor = drawColor.brighter();
     }
-    
+
+	/**
+     * Returns whether the peg has been hit.
+	 * @author Carlton Luu
+     */
     public boolean getIsHit() {
     	return isHit;
     }

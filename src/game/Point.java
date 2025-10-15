@@ -41,6 +41,7 @@ public class Point implements Cloneable {
 	 * Returns the dot product of two vectors.
 	 * @param p
 	 * @return the dot result between this Point and p
+	 * @author Carlton Luu
 	 */
 	public double dot(Point p) {
 		return (x * p.x) + (y * p.y);
@@ -56,7 +57,11 @@ public class Point implements Cloneable {
 		x /= length;
 		y /= length;
 	}
-	
+
+	/**
+	 * Returns the point's coordinates as a string in the format "(x, y)".
+	 * @author Carlton Luu
+	 */
 	public String toString() {
 		return "(" + x + ", " + y + ")";
 	}

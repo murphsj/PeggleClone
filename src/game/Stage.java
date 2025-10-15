@@ -16,6 +16,10 @@ import javax.swing.*;
  * game objects as well as keeping track of win/lose conditions.
  */
 public class Stage implements Updating {
+	/**
+	 * How many balls left the player gets at the start of each round.
+	 */
+	private static final int STARTING_BALL_COUNT = 8;
 	
 	/**
 	 * Text display of the game state.
@@ -109,9 +113,13 @@ public class Stage implements Updating {
 	 */
 	private boolean canShoot = true;
 	/**
-	 * How many balls the player has remaining
+	 * How many balls the player has remaining.
 	 */
 	private int ballsLeft;
+	/**
+	 * The amount of goal pegs to spawn when generating the map.
+	 */
+	private int goalPegsToSpawn = 4;
 	
 	/**
 	 * Adds to the player's score.
@@ -140,9 +148,9 @@ public class Stage implements Updating {
 	    
 	    pegs = new ArrayList<>();
 	    
-	    generateRandomStage(20, 5);
+	    generateRandomStage(20, goalPegsToSpawn);
 	    
-	    ballsLeft = 1;
+	    ballsLeft = STARTING_BALL_COUNT;
 	}
 	
 	/**
@@ -225,8 +233,9 @@ public class Stage implements Updating {
 			if (hasWon()) {
 				// Reset the game with a new level
 				clearPegs();
-				generateRandomStage(20, 5);
-				ballsLeft = 8;
+				goalPegsToSpawn++;
+				generateRandomStage(20, goalPegsToSpawn);
+				ballsLeft = STARTING_BALL_COUNT;
 				canShoot = true;
 			} else {
 				// End the game with a game over message
@@ -234,7 +243,9 @@ public class Stage implements Updating {
 				gameOverDialog.add(
 						new JLabel("You lose! Final score: " + score)
 				);
-				gameOverDialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+				gameOverDialog.setDefaultCloseOperation(
+						JDialog.DO_NOTHING_ON_CLOSE
+				);
 				gameOverDialog.addWindowListener(new WindowAdapter() {
 					@Override
 					public void windowClosing(WindowEvent e) {

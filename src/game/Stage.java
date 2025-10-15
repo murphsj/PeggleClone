@@ -147,6 +147,8 @@ public class Stage implements Updating {
 	
 	/**
      * Randomly generates a stage with the given number of normal and goal pegs.
+	 * @param normalPegs the number of normal (blue) pegs to create
+     * @param goalPegs the number of goal (orange) pegs to create
 	 * @author Carlton Luu
 	 */
 	private void generateRandomStage(int normalPegs, int goalPegs) {
@@ -182,6 +184,7 @@ public class Stage implements Updating {
 	
 	/**
      * Updates the launcher's rotation based on player input.
+	 * @param deltaTime the time elapsed since the last frame, used for smooth rotation
 	 * @author Carlton Luu
 	 */
 	private void updateLauncher(double deltaTime) {
@@ -260,7 +263,8 @@ public class Stage implements Updating {
 	}
 	
 	/**
-     * Returns true if all goal pegs have been cleared, meaning the player has won.
+     * Checks if the player has cleared all goal pegs.
+	 * @return true if all goal pegs are cleared, false otherwise
 	 * @author Carlton Luu
 	 */
 	private boolean hasWon() {
@@ -276,6 +280,8 @@ public class Stage implements Updating {
 
 	/**
      * Updates the game each frame, including launcher rotation and turn progression.
+	 * Also checks if active ball has fallen off screen.
+	 * @param deltaTime time elapsed since last frame
 	 * @author Carlton Luu
 	 */
 	@Override

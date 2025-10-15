@@ -73,7 +73,8 @@ class PeggleClone extends Game {
 	}
 	
 	/**
-	 * ADD JAVADOC HERE
+	 * Sorts all drawable objects by draw order to ensure correct rendering order.
+	 * @author Carlton Luu
 	 */
 	private void sortZLevel() {
 		// Use a lambda compare function to sort drawable objects by z level

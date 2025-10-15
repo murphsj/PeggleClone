@@ -27,7 +27,8 @@ public class CircleColliderSprite extends DrawablePolygon  {
 	 * Precondition: numPoints is &gt;= 2
 	 * @param numPoints how many points the shape should have
 	 * @param radius the radius of the shape
-	 * @return
+	 * @return Point[]
+	 * @author Carlton Luu
 	 */
 	static Point[] makeCircularShape(int numPoints, double radius) {
 		if (numPoints < 2) {
@@ -55,6 +56,7 @@ public class CircleColliderSprite extends DrawablePolygon  {
 	 * @param drawOrder
 	 * @param drawColor
 	 * @param radius
+	 * @author Carlton Luu
 	 */
 	public CircleColliderSprite(Point[] shape, Point position, double rotation,
 			int drawOrder, Color drawColor, double radius) {
@@ -72,6 +74,7 @@ public class CircleColliderSprite extends DrawablePolygon  {
 	 * @param drawOrder
 	 * @param drawColor
 	 * @param radius
+	 * @author Carlton Luu
 	 */
 	public CircleColliderSprite(int numPoints, Point position, double rotation,
 			int drawOrder, Color drawColor, double radius) {
@@ -84,6 +87,7 @@ public class CircleColliderSprite extends DrawablePolygon  {
 	 * sprite.
 	 * @param other
 	 * @return true if the objects are colliding, otherwise false
+	 * @author Carlton Luu
 	 */
 	public boolean isColliding(CircleColliderSprite other) {
 		// Two circles are overlapping if the distance between their centers is
@@ -101,6 +105,7 @@ public class CircleColliderSprite extends DrawablePolygon  {
 	/**
 	 * Returns whether or not this sprite is outside of the given bounds.
 	 * @return true if the sprite is outside of the bounds, otherwise false
+	 * @author Carlton Luu
 	 */
 	public boolean isTouchingBounds(Point min, Point max) {
 		// Actual circle-rectangle collision is annoying, but circles will only

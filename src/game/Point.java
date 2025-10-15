@@ -60,6 +60,7 @@ public class Point implements Cloneable {
 
 	/**
 	 * Returns the point's coordinates as a string in the format "(x, y)".
+	 * @return String point's coordinates
 	 * @author Carlton Luu
 	 */
 	public String toString() {

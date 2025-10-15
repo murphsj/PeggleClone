@@ -99,6 +99,7 @@ public class Ball extends CircleColliderSprite implements Updating {
     
     /**
      * Advances the ball's physics.
+	 * @param deltaTime the time elapsed since the last frame, used to update motion smoothly
      * @author Samuel Murphy
      */
     @Override
@@ -144,13 +145,18 @@ public class Ball extends CircleColliderSprite implements Updating {
     
     /**
      * Adds to the veloicty of the ball.
-     * @param impulseVelocity 
+     * @param impulseVelocity the velocity vector to add to the ball's current velocity
 	 * @author Carlton Luu
      */
     public void applyImpulse(Point impulseVelocity) {
     	velocity = velocity.add(impulseVelocity);
     }
-    
+
+	/**
+	 * Paints the component.
+	 * @param brush the Graphics object used for drawing
+	 * @author Carlton Luu
+	 */
     @Override
 	public void paint(Graphics brush) {
     	super.paint(brush);

@@ -11,6 +11,7 @@ public class GoalPeg extends Peg {
 	/**
 	 * Builds a circular polygonal shape with the given position
 	 * @param position 
+	 * @author Carlton Luu
 	 */
     public GoalPeg(Point position) {
         super(position, COLOR_GOAL_PEG); 

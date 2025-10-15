@@ -67,6 +67,7 @@ public class BallLauncher extends DrawablePolygon {
 	 * this update's delta-time value scaled based on if the launcher should be
 	 * stationary, rotating left, or rotating right.
 	 * @param rotationChange
+	 * @author Carlton Luu
 	 */
 	public void rotate(double rotationChange) {
 		rotation += rotationChange * LAUNCHER_SPEED;

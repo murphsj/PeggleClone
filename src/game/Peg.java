@@ -23,8 +23,8 @@ public abstract class Peg extends CircleColliderSprite {
 
     /**
      * Creates a new Peg.
-     * @param position
-     * @param color
+     * @param position the position of peg on game field.
+     * @param color the color used to draw peg.
 	 * @author Carlton Luu
      */
     public Peg(Point position, Color color) {

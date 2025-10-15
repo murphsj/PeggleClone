@@ -37,6 +37,7 @@ public class DrawablePolygon extends Polygon implements Drawable {
 	/**
      * Draws the polygon on the screen using its current
 	 * color and vertex positions.
+	 * @param brush the Graphics object used to render polygon.
 	 * @author Carlton Luu
      */
 	@Override

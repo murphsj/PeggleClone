@@ -22,11 +22,17 @@ public class Stage implements Updating {
 	private static final int STARTING_BALL_COUNT = 8;
 	
 	/**
-	 * Text display of the game state.
+	 * Displays stage-related information such as remaining balls and score.
 	 */
 	private class StageInfoDisplay implements Drawable {
 		private static Color INFO_DRAW_COLOR = new Color(1f, 1f, 1f);
 		@Override
+		
+		/**
+		 * Paints the stage information on the screen.
+         * @param brush the Graphics object used for drawing
+		 * @author Carlton Luu
+		 */
 		public void paint(Graphics brush) {
 			brush.setColor(INFO_DRAW_COLOR);
 			String stageInfo = "Balls Left: " + ballsLeft + "\n "
@@ -34,6 +40,11 @@ public class Stage implements Updating {
 			brush.drawString(stageInfo, 0, 30);
 		}
 
+		/**
+		 * Returns the drawing order for this drawable object.
+         * Higher values are drawn later (on top of lower values).
+		 * @author Carlton Luu
+		 */
 		@Override
 		public int getDrawOrder() {
 			return 20;
@@ -44,9 +55,21 @@ public class Stage implements Updating {
 	 * Key listener which responds to gameplay control inputs.
 	 */
 	private class StageInputListener implements KeyListener {
+
+		/*
+		 * Invoked when key has been pressed.
+		 * @param e the KeyEvent associated with key pressed.
+		 * @author Carlton Luu
+		 */
 		@Override
 		public void keyTyped(KeyEvent e) {};
 
+		/*
+		 * Invoked when a key has been pressed.
+         * Updates left/right movement state based on arrow key input.
+		 * @param e the KeyEvent associated with key pressed.
+		 * @author Carlton Luu
+		 */
 		@Override
 		public void keyPressed(KeyEvent e) {
 			int keyCode = e.getKeyCode();
@@ -60,6 +83,12 @@ public class Stage implements Updating {
 			}
 		}
 
+		/*
+		 * Invoked when a key has been released.
+         * Updates left/right movement state and handles ball launching.
+		 * @param e the KeyEvent associated with key release.
+		 * @author Carlton Luu
+		 */
 		@Override
 		public void keyReleased(KeyEvent e) {
 			int keyCode = e.getKeyCode();

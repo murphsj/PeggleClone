@@ -146,7 +146,8 @@ public class Stage implements Updating {
 	}
 	
 	/**
-	 * ADD JAVADOC HERE
+     * Randomly generates a stage with the given number of normal and goal pegs.
+	 * @author Carlton Luu
 	 */
 	private void generateRandomStage(int normalPegs, int goalPegs) {
 		// Generate normal pegs
@@ -169,7 +170,8 @@ public class Stage implements Updating {
 	}
 	
 	/**
-	 * ADD JAVADOC HERE
+     * Launches a new ball from the launcher and starts a turn.
+	 * @author Carlton Luu
 	 */
 	private void launchBall() {
 		ballsLeft--;
@@ -179,7 +181,8 @@ public class Stage implements Updating {
 	}
 	
 	/**
-	 * ADD JAVADOC HERE
+     * Updates the launcher's rotation based on player input.
+	 * @author Carlton Luu
 	 */
 	private void updateLauncher(double deltaTime) {
 		double rotationDelta = 0;
@@ -194,7 +197,8 @@ public class Stage implements Updating {
 	}
 	
 	/**
-	 * ADD JAVADOC HERE
+     * Ends the current turn, removes hit pegs, and checks for win or loss.
+	 * @author Carlton Luu
 	 */
 	private void endTurn() {
 		if (inPlayBall != null) {
@@ -243,7 +247,8 @@ public class Stage implements Updating {
 	}
 	
 	/**
-	 * ADD JAVADOC HERE
+     * Removes all pegs from the game.
+	 * @author Carlton Luu
 	 */
 	private void clearPegs() {
 		for (Peg p : pegs) {
@@ -255,7 +260,8 @@ public class Stage implements Updating {
 	}
 	
 	/**
-	 * ADD JAVADOC HERE
+     * Returns true if all goal pegs have been cleared, meaning the player has won.
+	 * @author Carlton Luu
 	 */
 	private boolean hasWon() {
 		// If any peg on the field is a GoalPeg, we haven't won yet
@@ -269,7 +275,8 @@ public class Stage implements Updating {
 	}
 
 	/**
-	 * ADD JAVADOC HERE
+     * Updates the game each frame, including launcher rotation and turn progression.
+	 * @author Carlton Luu
 	 */
 	@Override
 	public void update(double deltaTime) {

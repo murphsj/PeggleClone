@@ -47,6 +47,7 @@ public abstract class Peg extends CircleColliderSprite {
 
 	/**
      * Returns whether the peg has been hit.
+	 * @return boolean true if hit, false if not
 	 * @author Carlton Luu
      */
     public boolean getIsHit() {

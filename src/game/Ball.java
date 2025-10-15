@@ -110,7 +110,12 @@ public class Ball extends CircleColliderSprite implements Updating {
     	handleBoundsCollisions();
     	
     }
-    
+
+	/**
+	 * Checks for collisions with all other circle colliders
+	 * and bounces off any that intersect.
+	 * @author Carlton Luu
+	 */
     private void handleCircleCollisions() {
     	for (CircleColliderSprite collider : CircleColliderSprite.colliders) {
     		if (this.equals(collider)) continue;
@@ -119,7 +124,11 @@ public class Ball extends CircleColliderSprite implements Updating {
     		}
     	}
     }
-    
+
+	/**
+     * Keeps the object within the screen bounds and bounces it off the edges.
+	 * @author Carlton Luu
+     */
     private void handleBoundsCollisions() {
     	if (position.x - radius < 0) {
     		position.x = radius;
@@ -136,6 +145,7 @@ public class Ball extends CircleColliderSprite implements Updating {
     /**
      * Adds to the veloicty of the ball.
      * @param impulseVelocity 
+	 * @author Carlton Luu
      */
     public void applyImpulse(Point impulseVelocity) {
     	velocity = velocity.add(impulseVelocity);

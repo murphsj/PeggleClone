@@ -9,6 +9,11 @@ public class NormalPeg extends Peg {
 	private static final Color COLOR_NORMAL_PEG = 
 			new Color(0.32f, 0.40f, 0.81f);
 
+	/**
+	 * Builds a circular polygonal shape with the given position
+	 * @param position the point to create peg
+	 * @author Carlton Luu
+	 */
     public NormalPeg(Point position) {
         super(position, COLOR_NORMAL_PEG);
     }

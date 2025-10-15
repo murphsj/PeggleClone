@@ -39,8 +39,8 @@ public class Point implements Cloneable {
 	
 	/**
 	 * Returns the dot product of two vectors.
-	 * @param p
-	 * @return the dot result between this Point and p
+	 * @param p other point whose components used in dot product calculation.
+	 * @return the dot result between this Point and p.
 	 * @author Carlton Luu
 	 */
 	public double dot(Point p) {

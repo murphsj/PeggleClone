@@ -26,6 +26,7 @@ public class DrawablePolygon extends Polygon implements Drawable {
 	 * @param rotation the rotation of the polygon
 	 * @param drawOrder the z-index of the polygon
 	 * @param drawColor the color to render the polygon with
+	 * @author Carlton Luu
 	 */
 	public DrawablePolygon(Point[] shape, Point position, double rotation,
 			int drawOrder, Color drawColor) {
@@ -33,6 +34,11 @@ public class DrawablePolygon extends Polygon implements Drawable {
 		this.drawColor = drawColor;
 	}
 
+	/**
+     * Draws the polygon on the screen using its current
+	 * color and vertex positions.
+	 * @author Carlton Luu
+     */
 	@Override
 	public void paint(Graphics brush) {
 		brush.setColor(drawColor);
@@ -48,7 +54,11 @@ public class DrawablePolygon extends Polygon implements Drawable {
 		
 		brush.fillPolygon(pointsX, pointsY, points.length);
 	}
-	
+
+	/**
+     * Returns the draw order used to determine rendering priority.
+	 * @author Carlton Luu
+     */
 	@Override
 	public int getDrawOrder() {
 		return drawOrder;
